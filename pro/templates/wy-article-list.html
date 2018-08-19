@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}文章列表 - 精品课堂{% endblock %}
+
+{% load staticfiles %}
+{% block custom_bread %}
+{% endblock %}
+
+{% block custom_js %}
+    <style>
+        th {
+            font-size: larger;
+            background-color: black;
+            color: white;
+            margin-top: 20px;
+        }
+
+        td {
+            line-height: 20px;
+            padding: 2px 15px;
+        }
+        .box1{
+            font-size: large;
+            display: block;
+            margin-left: 50px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <div class="box1">
+        <a href="{% url 'blog:new_article' %}">发表文章 >> </a>
+    </div>
+    <div align="center">
+        <table class="table">
+            <thead class="thead-inverse">
+            <tr>
+                <th>文章标题</th>
+                <th>文章内容</th>
+                <th>发布时间</th>
+                <th>作者</th>
+                <th>修改时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for article in article %}
+                <tr>
+                    <td><a href="{% url 'blog:article_detail' article.article_id %}">{{ article.a_title }}</a></td>
+                    <td>{{ article.a_conent }}</td>
+                    <td>{{ article.a_rtime }}</td>
+                    <td>{{ article.a_user.username }}</td>
+                    <td>{{ article.a_ctime }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

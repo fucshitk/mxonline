@@ -1,0 +1,52 @@
+
+{% extends 'base.html' %}
+{% block title %}课程机构列表 - 精品课堂{% endblock %}
+{% load staticfiles %}
+{% block custom_bread %}
+{% endblock %}
+
+{% block custom_js %}
+    <script type="text/javascript" src="/static/js/index.js"></script>
+{% endblock %}
+
+
+{% block content %}
+
+    <div align="center" class="box1">
+        <h1>{{ article.a_title }}</h1>
+        <br>
+        <h3>{{ article.a_conent }}</h3>
+        <h1>{{ article.a_rtime }}</h1>
+        <h1>{{ article.a_user.username }}</h1>
+        <h1>{{ article.a_ctime }}</h1>
+    </div>
+
+    {#评论表单#}
+    <div align="center" class="box1">
+        <form method="post" class="mb-4" action="{% url 'blog:comment' article.article_id %}">
+            {% csrf_token %}
+            <label for="id_comment">发表评论</label>
+            <br>
+            <textarea class="form-control" id="id_comment" name="co_content" rows="5"></textarea>
+            <br>
+            <button type="submit" class="btn btn-success">提交评论</button>
+        </form>
+
+    </div>
+    <hr>
+    {# 评论列表#}
+    <div align="center" class="box1">
+        <table>
+            {% for com in commentList %}
+                <tr>
+                    <td>{{ com.user }}</td>
+                    <td>{{ com.co_content }}</td>
+                    <td>{{ com.co_time }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+
+{% endblock %}
